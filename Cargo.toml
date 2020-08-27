@@ -2,6 +2,12 @@
 name = "s3ql"
 version = "0.1.0"
 authors = ["Julia Naomi <jnboeira@outlook.com>"]
+description = "Query Language for S3"
+readme = "README.md"
+documentation = "https://docs.rs/s3ql/"
+repository = "https://github.com/naomijub/s3ql"
+keywords = ["s3", "ql", "query language"]
+license = "LGPL-3.0"
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
