@@ -29,5 +29,9 @@ For local development `rust`, `cargo`, `python`, `pip` and `docker` are required
 - [ ] Update Object Metadata - `update_s3_object_metadata`
 - [ ] Update Object Body - `update_s3_object_body`
 
+### Direct Read:
+- [x] Read Object - `read_s3_object`
+- [x] Read Object Body - `read_s3_object_body`
+
 ### Query
 - [ ] All of it
