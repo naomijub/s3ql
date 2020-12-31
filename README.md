@@ -16,6 +16,7 @@ For local development `rust`, `cargo`, `python`, `pip` and `docker` are required
 ## TODO:
 - [ ] passing tests
 - [ ] example usage
+- [ ] docs
 
 ### Buckets:
 - [x] Create Bucket - `create_s3_bucket`
@@ -32,6 +33,8 @@ For local development `rust`, `cargo`, `python`, `pip` and `docker` are required
 ### Direct Read:
 - [x] Read Object - `read_s3_object`
 - [x] Read Object Body - `read_s3_object_body`
+- [x] Has Object - `has_s3_object`
+- [x] Show Objects in Bucket - `show_s3_objects`
 
 ### Query
 - [ ] All of it
