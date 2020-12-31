@@ -1,6 +1,6 @@
 [package]
 name = "s3ql"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Julia Naomi <jnboeira@outlook.com>", "Otavio Pace <otaviopp8@gmail.com>"]
 description = "Query Language for S3"
 readme = "README.md"
@@ -15,4 +15,11 @@ edition = "2018"
 [dependencies]
 rusoto_core = "0.45.0"
 rusoto_s3 = "0.45.0"
-tokio = {version = "0.2.22", features = ["macros"] }
+bytes = "1"
+tokio = {version = "0.2.22", features = ["full"] }
+async-trait = "0.1.42"
+
+[dev-dependencies.cargo-husky]
+version = "1"
+default-features = false 
+features = ["run-cargo-fmt", "run-cargo-clippy"]
