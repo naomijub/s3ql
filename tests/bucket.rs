@@ -2,7 +2,7 @@ use s3ql::{bucket::*, region, s3_client};
 
 fn client() -> rusoto_s3::S3Client {
     let region = region("us-east-1".to_owned(), "http://localhost:4566".to_owned());
-    rusoto_s3::S3Client::new(region)
+    s3_client(region)
 }
 
 #[tokio::test]
