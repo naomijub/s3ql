@@ -7,7 +7,7 @@ fn client() -> rusoto_s3::S3Client {
 
 #[tokio::test]
 async fn create_bucket() {
-    let name = "test_create_bucket".to_string();
+    let name = "testCreateBucket".to_string();
     let s3 = client();
     let bucket = s3.create_s3_bucket(name.clone(), None).await;
 
@@ -20,7 +20,7 @@ async fn create_bucket() {
 
 #[tokio::test]
 async fn delete_bucket() {
-    let name = "test_to_delete_bucket".to_string();
+    let name = "testToDeleteBucket".to_string();
     let s3 = client();
     let bucket = s3.create_s3_bucket(name.clone(), None).await;
 
