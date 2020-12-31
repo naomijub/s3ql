@@ -44,6 +44,7 @@ jobs:
           sh -s -- -v -y --profile minimal --default-toolchain <<parameters.toolchain>>
       - run: $HOME/.cargo/bin/cargo build
       - run: $HOME/.cargo/bin/cargo test --locked  --no-fail-fast --lib
+      - run: $HOME/.cargo/bin/cargo test --test lib --no-fail-fast
       
 workflows:
   version: 2.1
