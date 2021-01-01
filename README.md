@@ -14,7 +14,6 @@ For local development `rust`, `cargo`, `python`, `pip` and `docker` are required
 * S3 will be at http://localhost:4566
 
 ## TODO:
-- [x] passing tests
 - [ ] more tests
 - [ ] example usage
 - [ ] docs
