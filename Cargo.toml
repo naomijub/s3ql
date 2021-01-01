@@ -1,6 +1,6 @@
 [package]
 name = "s3ql"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Julia Naomi <jnboeira@outlook.com>", "Otavio Pace <otaviopp8@gmail.com>"]
 description = "Query Language for S3"
 readme = "README.md"
