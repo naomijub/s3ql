@@ -26,7 +26,7 @@ For local development `rust`, `cargo`, `python`, `pip` and `docker` are required
 
 ### Transactions:
 - [x] Insert Object - `insert_s3_object`
-- [ ] Update Object Metadata - `update_s3_object_metadata`
+- [x] Update Object Metadata - `update_s3_object_metadata`
 - [x] Update Object Body - `update_s3_object_body`
 - [ ] ?Update Object Key? - `update_s3_object_key`
 

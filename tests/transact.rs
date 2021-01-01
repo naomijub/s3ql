@@ -7,6 +7,7 @@ fn client() -> rusoto_s3::S3Client {
 }
 
 pub const BUCKET: &'static str = "transactObjectsBucket";
+pub const UPDATE_BUCKET: &'static str = "updateTransactObjectsBucket";
 
 #[tokio::test]
 async fn insert_object() {
@@ -78,4 +79,70 @@ async fn update_object_body() {
         .await;
     assert!(read_obj.is_some());
     assert_eq!(read_obj.unwrap(), "this is a new body");
+}
+
+#[tokio::test]
+async fn update_object_meta() {
+    let s3 = client();
+    let bucket = s3.create_s3_bucket(UPDATE_BUCKET.to_string(), None).await;
+
+    assert!(bucket.is_ok());
+
+    let insert = s3.insert_s3_object(
+        UPDATE_BUCKET.to_string(),
+        None,
+        "meta-key".to_string(),
+        None,
+        None,
+    );
+
+    assert!(insert.await.is_ok());
+
+    assert!(s3
+        .has_s3_object(
+            UPDATE_BUCKET.to_string(),
+            "meta-key".to_string(),
+            None,
+            None,
+            None
+        )
+        .await
+        .is_ok());
+
+    let read_obj = s3
+        .read_s3_object(
+            UPDATE_BUCKET.to_string(),
+            "meta-key".to_string(),
+            None,
+            None,
+            None,
+        )
+        .await;
+    assert!(read_obj.is_ok());
+    assert_eq!(read_obj.unwrap().metadata, Some(HashMap::new()));
+
+    let mut map = HashMap::new();
+    map.insert("tx-time".to_string(), "2007-19-01T11:12:00-000".to_string());
+    let update = s3.update_s3_object_metadata(
+        UPDATE_BUCKET.to_string(),
+        "meta-key".to_string(),
+        Some(map),
+        None,
+    );
+    assert!(update.await.is_ok());
+
+    let read_obj = s3
+        .read_s3_object(
+            UPDATE_BUCKET.to_string(),
+            "meta-key".to_string(),
+            None,
+            None,
+            None,
+        )
+        .await;
+    assert!(read_obj.is_ok());
+    assert_eq!(
+        read_obj.unwrap().metadata.unwrap()["tx-time"],
+        "2007-19-01T11:12:00-000"
+    );
 }
