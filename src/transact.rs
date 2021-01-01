@@ -19,6 +19,14 @@ pub trait Transact: S3 {
         body: Option<String>,
         object_request: Option<PutObjectRequest>,
     ) -> Result<InsertResponse, RusotoError<PutObjectError>>;
+
+    async fn update_s3_object_body(
+        &self,
+        bucket_name: String,
+        key: String,
+        body: String,
+        object_request: Option<PutObjectRequest>,
+    ) -> Result<InsertResponse, RusotoError<PutObjectError>>;
 }
 
 #[async_trait]
@@ -62,6 +70,43 @@ impl Transact for S3Client {
             if body.is_some() {
                 put_object.body = Some(ByteStream::from(body.unwrap().as_bytes().to_vec()));
             }
+
+            match self.put_object(put_object).await {
+                Err(e) => Err(e),
+                Ok(resp) => Ok(InsertResponse {
+                    id: resp.e_tag.clone().unwrap_or_default(),
+                    object: resp,
+                }),
+            }
+        }
+    }
+
+    async fn update_s3_object_body(
+        &self,
+        bucket_name: String,
+        key: String,
+        body: String,
+        object_request: Option<PutObjectRequest>,
+    ) -> Result<InsertResponse, RusotoError<PutObjectError>> {
+        if let Some(mut obj) = object_request {
+            obj.bucket = bucket_name;
+            obj.key = key;
+            obj.body = Some(ByteStream::from(body.as_bytes().to_vec()));
+
+            match self.put_object(obj).await {
+                Err(e) => Err(e),
+                Ok(resp) => Ok(InsertResponse {
+                    id: resp.e_tag.clone().unwrap_or_default(),
+                    object: resp,
+                }),
+            }
+        } else {
+            let put_object = PutObjectRequest {
+                bucket: bucket_name,
+                key,
+                body: Some(ByteStream::from(body.as_bytes().to_vec())),
+                ..Default::default()
+            };
 
             match self.put_object(put_object).await {
                 Err(e) => Err(e),

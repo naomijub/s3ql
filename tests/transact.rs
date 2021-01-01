@@ -34,3 +34,48 @@ async fn insert_object() {
         .await
         .is_ok());
 }
+
+#[tokio::test]
+async fn update_object_body() {
+    let s3 = client();
+    let bucket = s3.create_s3_bucket(BUCKET.to_string(), None).await;
+
+    assert!(bucket.is_ok());
+
+    let body = "{\"hello\": \"world\"}";
+
+    let insert = s3.insert_s3_object(
+        BUCKET.to_string(),
+        None,
+        "key".to_string(),
+        Some(body.to_string()),
+        None,
+    );
+
+    assert!(insert.await.is_ok());
+
+    assert!(s3
+        .has_s3_object(BUCKET.to_string(), "key".to_string(), None, None, None)
+        .await
+        .is_ok());
+
+    let read_obj = s3
+        .read_s3_object_body(BUCKET.to_string(), "key".to_string(), None, None, None)
+        .await;
+    assert!(read_obj.is_some());
+    assert_eq!(read_obj.unwrap(), "{\"hello\": \"world\"}");
+
+    let update = s3.update_s3_object_body(
+        BUCKET.to_string(),
+        "key".to_string(),
+        "this is a new body".to_string(),
+        None,
+    );
+    assert!(update.await.is_ok());
+
+    let read_obj = s3
+        .read_s3_object_body(BUCKET.to_string(), "key".to_string(), None, None, None)
+        .await;
+    assert!(read_obj.is_some());
+    assert_eq!(read_obj.unwrap(), "this is a new body");
+}
