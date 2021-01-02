@@ -40,7 +40,7 @@ jobs:
           sudo python -m pip install pipenv
       - run: |
           pip install localstack
-          localstack start
+          /home/circleci/.local/bin/localstack start
       - run: >
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | 
           sh -s -- -v -y --profile minimal --default-toolchain <<parameters.toolchain>>
