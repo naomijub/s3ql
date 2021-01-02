@@ -32,13 +32,16 @@ jobs:
 
     docker:
       - image: buildpack-deps:trusty
-      - image: localstack/localstack:latest
-    environment:
-      - DEBUG: 0
-      - SERVICES: s3
 
     steps:
       - checkout
+      - run: >
+          pyenv versions
+          pyenv global 3.7.0
+          sudo python -m pip install --upgrade pip setuptools wheel
+          sudo python -m pip install pipenv
+      - run: pip install localstack
+      - run: localstack start
       - run: >
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | 
           sh -s -- -v -y --profile minimal --default-toolchain <<parameters.toolchain>>
