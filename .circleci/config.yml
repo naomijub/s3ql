@@ -31,19 +31,11 @@ jobs:
         type: string
 
     docker:
-      - image: buildpack-deps:trusty
+      - image: circleci/python:3.6.4
 
     steps:
       - checkout
-      - run:
-          name: update pyenv
-          command: |
-            # Install pyenv-update to allow addition of python 3.7.0
-            git clone git://github.com/pyenv/pyenv-update.git $(pyenv root)/plugins/pyenv-update
-            pyenv update
-            pyenv install 3.7.0
       - run: |
-          pyenv global 3.7.0
           sudo python -m pip install --upgrade pip setuptools wheel
           sudo python -m pip install pipenv
       - run: pip install localstack
