@@ -7,6 +7,7 @@ fn client() -> rusoto_s3::S3Client {
 
 pub const BUCKET: &'static str = "selectObjectsBucket";
 
+#[ignore] // Only runs on localstack pro and aws. Any issues PLEASE REPORT
 #[tokio::test]
 async fn select_object() {
     let s3 = client();
@@ -42,6 +43,8 @@ async fn select_object() {
             OutputObjectFormat::JSON(Some(",".to_string())),
         )
         .await;
+
+    println!("{:?}", select);
 
     assert!(select.is_ok());
 }
