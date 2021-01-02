@@ -24,7 +24,9 @@ jobs:
       - run:
           name: Run Clippy
           command: cargo clippy -- -W clippy::pedantic
+
   build_and_test:
+    machine: true
     parameters:
       toolchain:
         description: rust toolchain
@@ -35,6 +37,8 @@ jobs:
 
     steps:
       - checkout
+      - setup_remote_docker:
+        version: 19.03.13
       - run: |
           sudo python -m pip install --upgrade pip setuptools wheel
           sudo python -m pip install pipenv
