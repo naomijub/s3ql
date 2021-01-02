@@ -43,7 +43,7 @@ jobs:
       - checkout
       - run:
           name: Wait for localstack
-          command: dockerize -wait tcp://localhost:4566 -timeout 2m
+          command: docker wait localstack
       - run: >
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | 
           sh -s -- -v -y --profile minimal --default-toolchain <<parameters.toolchain>>
