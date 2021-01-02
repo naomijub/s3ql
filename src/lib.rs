@@ -1,4 +1,5 @@
 pub mod bucket;
+pub mod query;
 pub mod read;
 pub mod transact;
 

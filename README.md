@@ -17,6 +17,7 @@ For local development `rust`, `cargo`, `python`, `pip` and `docker` are required
 - [ ] more tests
 - [ ] example usage
 - [ ] docs
+- [ ] auth
 
 ### Buckets:
 - [x] Create Bucket - `create_s3_bucket`
@@ -37,4 +38,9 @@ For local development `rust`, `cargo`, `python`, `pip` and `docker` are required
 - [x] Show Objects in Bucket - `show_s3_objects`
 
 ### Query
-- [ ] All of it
+- [x] Select object content (AWS and localstack-pro ONLY)
+- [ ] All of Query Object in bucket
+- [ ] Conditionals https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-glacier-select-sql-reference-conditional.html
+- [ ] Cast https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-glacier-select-sql-reference-conversion.html
+- [ ] Date Functions https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-glacier-select-sql-reference-date.html
+- [ ] String Functions https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-glacier-select-sql-reference-string.html

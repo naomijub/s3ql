@@ -1,12 +1,12 @@
 [package]
 name = "s3ql"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["Julia Naomi <jnboeira@outlook.com>", "Otavio Pace <otaviopp8@gmail.com>"]
 description = "Query Language for S3"
 readme = "README.md"
 documentation = "https://docs.rs/s3ql/"
 repository = "https://github.com/naomijub/s3ql"
-keywords = ["s3", "ql"]
+keywords = ["s3", "query-language", "aws"]
 license = "LGPL-3.0"
 edition = "2018"
 
