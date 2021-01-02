@@ -43,9 +43,9 @@ jobs:
     steps:
       - checkout
       - run: |
-          wget https://github.com/jwilder/dockerize/releases/download/0.6.1/dockerize-linux-amd64-0.6.1.tar.gz \
-          && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-0.6.1.tar.gz \
-          && rm dockerize-linux-amd64-0.6.1.tar.gz
+          wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz \
+          && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz \
+          && rm dockerize-linux-amd64-v0.6.1.tar.gz
       - run:
           name: Wait for localstack
           command: dockerize -wait tcp://localhost:4566 -timeout 2m
