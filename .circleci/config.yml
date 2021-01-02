@@ -34,11 +34,16 @@ jobs:
       - image: buildpack-deps:trusty
       - image: localstack/localstack:latest
     environment:
-      - DEBUG: 0
+      - AWS_DEFAULT_REGION: us-east-1
       - SERVICES: s3
+      - DEBUG: 1
+      - HOSTNAME_EXTERNAL: localhost
 
     steps:
       - checkout
+      - run:
+          name: Wait for localstack
+          command: dockerize -wait tcp://localhost:4566 -timeout 2m
       - run: >
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | 
           sh -s -- -v -y --profile minimal --default-toolchain <<parameters.toolchain>>
