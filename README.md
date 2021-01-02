@@ -4,9 +4,7 @@ Query Language inspired by SQL for S3.
 
 ## Usage
 
-```
-SELECT <matadata> FROM <Bucket> KEY <key>.
-```
+TODO
 
 ## Local development
 For local development `rust`, `cargo`, `python`, `pip` and `docker` are required. To setup a local S3 with `localstsack` you can execute `make setup` and to start a S3 with `localstack` you can execute `make s3`.
@@ -17,7 +15,7 @@ For local development `rust`, `cargo`, `python`, `pip` and `docker` are required
 - [ ] more tests
 - [ ] example usage
 - [ ] docs
-- [ ] auth
+- [x] auth (S3CLient can have auth by using directly `rusoto_s3::S3Client` or function `s3_client_with` with feature `auth`)
 
 ### Buckets:
 - [x] Create Bucket - `create_s3_bucket`
@@ -29,7 +27,6 @@ For local development `rust`, `cargo`, `python`, `pip` and `docker` are required
 - [x] Insert Object - `insert_s3_object`
 - [x] Update Object Metadata - `update_s3_object_metadata`
 - [x] Update Object Body - `update_s3_object_body`
-- [ ] ?Update Object Key? - `update_s3_object_key`
 
 ### Direct Read:
 - [x] Read Object - `read_s3_object`
