@@ -37,7 +37,6 @@ jobs:
       - image: localstack/localstack:latest
         environment:
           - AWS_DEFAULT_REGION: us-east-1
-          - SERVICES: s3
           - DEBUG: 1
           - HOSTNAME_EXTERNAL: localhost
 
