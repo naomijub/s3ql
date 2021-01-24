@@ -1,6 +1,7 @@
 # S3QL
 
 Query Language inspired by SQL for S3.
+* This is a slow development project
 
 ## Usage
 
