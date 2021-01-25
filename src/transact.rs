@@ -73,7 +73,7 @@ impl Transact for S3Client {
                 bucket: bucket_name,
                 key,
                 metadata,
-                ..Default::default()
+                ..PutObjectRequest::default()
             };
             if body.is_some() {
                 put_object.body = Some(ByteStream::from(body.unwrap().as_bytes().to_vec()));

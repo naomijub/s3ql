@@ -24,26 +24,34 @@ jobs:
       - run:
           name: Run Clippy
           command: cargo clippy -- -W clippy::pedantic
+
   build_and_test:
+    machine: true
     parameters:
       toolchain:
         description: rust toolchain
         type: string
 
     docker:
-      - image: buildpack-deps:trusty
-      - image: localstack/localstack:latest
-    environment:
-      - DEBUG: 0
-      - SERVICES: s3
+      - image: circleci/python:3.6.4
 
     steps:
       - checkout
+      - setup_remote_docker:
+        version: 19.03.13
+      - run: |
+          sudo python -m pip install --upgrade pip setuptools wheel
+          sudo python -m pip install pipenv
+      - run: |
+          pip install localstack
+          echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+          /home/circleci/.local/bin/localstack start
       - run: >
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | 
           sh -s -- -v -y --profile minimal --default-toolchain <<parameters.toolchain>>
       - run: $HOME/.cargo/bin/cargo build
       - run: $HOME/.cargo/bin/cargo test --locked  --no-fail-fast --lib
+      - run: $HOME/.cargo/bin/cargo test --test lib --no-fail-fast
       
 workflows:
   version: 2.1
