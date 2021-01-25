@@ -40,7 +40,7 @@ impl Bucket for S3Client {
         } else {
             let create_bucket_req = CreateBucketRequest {
                 bucket: bucket_name,
-                ..Default::default()
+                ..CreateBucketRequest::default()
             };
 
             self.create_bucket(create_bucket_req).await

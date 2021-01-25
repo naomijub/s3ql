@@ -32,18 +32,29 @@ jobs:
 
     docker:
       - image: buildpack-deps:trusty
+        environment:
+          - COMMON_NETWORK: localhost
       - image: localstack/localstack:latest
-    environment:
-      - DEBUG: 0
-      - SERVICES: s3
+        environment:
+          - AWS_DEFAULT_REGION: us-east-1
+          - DEBUG: 1
+          - HOSTNAME_EXTERNAL: localhost
 
     steps:
       - checkout
+      - run: |
+          wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz \
+          && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz \
+          && rm dockerize-linux-amd64-v0.6.1.tar.gz
+      - run:
+          name: Wait for localstack
+          command: dockerize -wait tcp://localhost:4566 -timeout 2m
       - run: >
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | 
           sh -s -- -v -y --profile minimal --default-toolchain <<parameters.toolchain>>
       - run: $HOME/.cargo/bin/cargo build
       - run: $HOME/.cargo/bin/cargo test --locked  --no-fail-fast --lib
+      - run: $HOME/.cargo/bin/cargo test --test lib --no-fail-fast
       
 workflows:
   version: 2.1

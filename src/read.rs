@@ -58,7 +58,7 @@ impl Readable for S3Client {
             if_match: if_id_matches,
             if_modified_since,
             if_unmodified_since,
-            ..Default::default()
+            ..GetObjectRequest::default()
         };
 
         self.get_object(get_object).await
@@ -78,7 +78,7 @@ impl Readable for S3Client {
             if_match: if_id_matches,
             if_modified_since,
             if_unmodified_since,
-            ..Default::default()
+            ..GetObjectRequest::default()
         };
 
         match self.get_object(get_object).await {
@@ -111,7 +111,7 @@ impl Readable for S3Client {
             if_match: if_id_matches,
             if_modified_since,
             if_unmodified_since,
-            ..Default::default()
+            ..HeadObjectRequest::default()
         };
 
         match self.head_object(head_object).await {
@@ -128,7 +128,7 @@ impl Readable for S3Client {
         let list_objs = ListObjectsV2Request {
             bucket: bucket_name,
             max_keys,
-            ..Default::default()
+            ..ListObjectsV2Request::default()
         };
 
         self.list_objects_v2(list_objs).await
